@@ -78,8 +78,9 @@ namespace VBASync.Model
 
         public void ReplaceFormControls(string name, VbaFolder source)
         {
-            _so.FileCopy(FindFrxPath(source.FindModulePath(name, ModuleType.Form)),
-                FindFrxPath(FindModulePath(name, ModuleType.Form)), true);
+            /*_so.FileCopy(FindFrxPath(source.FindModulePath(name, ModuleType.Form)),
+                FindFrxPath(FindModulePath(name, ModuleType.Form)), true);*/
+            _so.FileCopy(source.FindFrxPath(name), FindFrxPath(name), true);    //badkatro: https://github.com/andyqp/VBASync/commit/4129b9ebe51caeaaf4a81b58a924e1c1405b2627 - fixing form design patching?
         }
 
         public void ReplaceTextModule(string name, ModuleType type, VbaFolder source, string fallbackText)
@@ -130,8 +131,11 @@ namespace VBASync.Model
         }
 
         protected string FindModulePath(string name, ModuleType type)
-            => ModuleFilePaths.Find(s => string.Equals(_so.PathGetFileName(s), name + ModuleProcessing.ExtensionFromType(type),
-                StringComparison.OrdinalIgnoreCase));
+            => ModuleFilePaths.Find(s => string.Equals(_so.PathGetFileName(s), _so.PathGetFileName(name + ModuleProcessing.ExtensionFromType(type)),
+                StringComparison.OrdinalIgnoreCase));   //badkatro: https://github.com/andyqp/VBASync/commit/4129b9ebe51caeaaf4a81b58a924e1c1405b2627
+            // original code below
+            /*=> ModuleFilePaths.Find(s => string.Equals(_so.PathGetFileName(s), name + ModuleProcessing.ExtensionFromType(type),
+                StringComparison.OrdinalIgnoreCase));*/
 
         protected virtual List<string> GetModuleFilePaths() => GetModuleFilePaths(false);
 

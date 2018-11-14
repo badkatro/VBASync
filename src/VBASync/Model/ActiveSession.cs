@@ -47,7 +47,21 @@ namespace VBASync.Model
         public IEnumerable<Patch> GetPatches()
         {
             var folderModules = _repositoryFolder.GetCodeModules();
-            _tempFolder.Read(_session.FilePath);
+
+            if (_session.Action == ActionType.Extract)
+            {
+                bool formsOnly = false; //badkatro: Adding new parameter "-fo" - forms only - to force extraction or publishing of forms but not rest of vba component types
+
+                if (_session.ExtractFormsOnly) { formsOnly = true; }
+
+                _tempFolder.Read(_session.FilePath, formsOnly);
+                
+            }
+            else 
+            {
+                _tempFolder.Read(_session.FilePath);
+            }
+
             _sessionSettings.AfterExtractHook?.Execute(_tempFolder.FolderPath);
             _tempFolder.FixCase(folderModules.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Item1));
             var vbaFileModules = _tempFolder.GetCodeModules();

@@ -35,6 +35,7 @@ namespace VBASync.Model
         public bool Portable { get; set; }
         public List<string> RecentFiles { get; } = new List<string>();
         public bool SearchRepositorySubdirectories { get; set; }
+        public bool ExtractFormsOnly { get; set; }
 
         public void ProcessArgs(string[] args)
         {
@@ -49,6 +50,10 @@ namespace VBASync.Model
                     case "-X":
                     case "/X":
                         Action = ActionType.Extract;
+                        break;
+                    case "-FO":
+                    case "/FO":
+                        ExtractFormsOnly = true;
                         break;
                     case "-P":
                     case "/P":

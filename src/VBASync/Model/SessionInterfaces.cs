@@ -12,6 +12,7 @@
         bool AutoRun { get; }
         string FilePath { get; }
         string FolderPath { get; }
+        bool ExtractFormsOnly { get; }
     }
 
     public interface ISessionSettings

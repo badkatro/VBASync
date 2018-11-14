@@ -6,6 +6,7 @@
         private bool _autoRun;
         private string _filePath;
         private string _folderPath;
+        private bool _extractFormsOnly;
 
         public Model.ActionType Action
         {
@@ -17,6 +18,12 @@
         {
             get { return _autoRun; }
             set { SetField(ref _autoRun, value, nameof(AutoRun)); }
+        }
+
+        public bool ExtractFormsOnly
+        {
+            get { return _extractFormsOnly; }
+            set { SetField(ref _extractFormsOnly, value, nameof(ExtractFormsOnly)); }
         }
 
         public string FilePath

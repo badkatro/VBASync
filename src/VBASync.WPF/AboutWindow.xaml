@@ -33,10 +33,9 @@
             TextWrapping="Wrap" />
         <TextBlock
             x:Name="CopyrightBlock"
-            Margin="0,12,0,0"
+            Margin="0,6,0,4"
             Padding="4"
-            Text="{x:Static l10n:VBASyncResources.AWCopyright}"
-            TextWrapping="Wrap" />
+            TextWrapping="Wrap" ><Run Text="Free software"/><Run Text=", created"/><Run Text=" {0} Chelsea Hughes"/><Run Text=" &amp; modified by badkatro. "/><Run Text="See {1} for more details."/></TextBlock>
         <TextBlock
             x:Name="WebsiteBlock"
             Padding="4"

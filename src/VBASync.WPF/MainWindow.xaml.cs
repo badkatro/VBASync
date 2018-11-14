@@ -11,9 +11,9 @@ using VBASync.Model;
 namespace VBASync.WPF {
     internal sealed partial class MainWindow : IDisposable {
         internal const int CopyrightYear = 2017;
-        internal const string SupportUrl = "https://github.com/chelh/VBASync";
+        internal const string SupportUrl = "https://github.com/badkatro/VBASync";
 
-        internal static readonly Version Version = new Version(2, 2, 0);
+        internal static readonly Version Version = new Version(2, 2, 1);
 
         private readonly MainViewModel _vm;
 

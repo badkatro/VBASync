@@ -10,9 +10,11 @@ using System.Linq;
 using System.Text;
 using VBASync.Localization;
 
+
 namespace VBASync.Model
 {
     internal class VbaTemporaryFolder : VbaFolder, IDisposable
+        
     {
         private readonly ISystemOperations _so;
 
@@ -53,7 +55,7 @@ namespace VBASync.Model
             }
         }
 
-        public void Read(string path)
+        public void Read(string path, bool ExtractFormsOnly = false)
         {
             if (string.IsNullOrEmpty(path))
             {
@@ -386,8 +388,22 @@ namespace VBASync.Model
                 foreach (var m in _modules)
                 {
                     var moduleText = projEncoding.GetString(DecompressStream(vbaProject.GetStorage("VBA").GetStream(m.StreamName), m.Offset));
-                    moduleText = (GetPrepend(m, vbaProject, projEncoding) + moduleText).TrimEnd('\r', '\n') + "\r\n";
-                    _so.FileWriteAllText(_so.PathCombine(FolderPath, m.Name + ModuleProcessing.ExtensionFromType(m.Type)), moduleText, projEncoding);
+                    /*badkatro: Added optional parameter "ExtractFormsOnly" to vbaTemporaryFolder.Read routine, enabling extraction of forms only
+                    When vbasync main exe is called with -fo bool parameter, Read routine is called with optional ExtractFormsOnly set to true*/
+                    if (!ExtractFormsOnly)  
+                    {
+                        moduleText = (GetPrepend(m, vbaProject, projEncoding) + moduleText).TrimEnd('\r', '\n') + "\r\n";
+                        _so.FileWriteAllText(_so.PathCombine(FolderPath, m.Name + ModuleProcessing.ExtensionFromType(m.Type)), moduleText, projEncoding);
+                    }
+                    else
+                    {
+                        if (m.Type == ModuleType.Form) //badkatro: only process form components
+                        {
+                            moduleText = (GetPrepend(m, vbaProject, projEncoding) + moduleText).TrimEnd('\r', '\n') + "\r\n";
+                            _so.FileWriteAllText(_so.PathCombine(FolderPath, m.Name + ModuleProcessing.ExtensionFromType(m.Type)), moduleText, projEncoding);
+                        }
+                    }
+                    
                 }
 
                 foreach (var m in _modules.Where(mod => mod.Type == ModuleType.Form))

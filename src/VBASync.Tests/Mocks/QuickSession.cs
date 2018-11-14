@@ -8,5 +8,6 @@ namespace VBASync.Tests.Mocks
         public bool AutoRun { get; set; }
         public string FilePath { get; set; }
         public string FolderPath { get; set; }
+        public bool ExtractFormsOnly { get; set; }
     }
 }
