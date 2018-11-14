@@ -131,7 +131,7 @@ namespace VBASync.Model
         }
 
         protected string FindModulePath(string name, ModuleType type)
-            => ModuleFilePaths.Find(s => string.Equals(_so.PathGetFileName(s), _so.PathGetFileName(name + ModuleProcessing.ExtensionFromType(type)),
+            => ModuleFilePaths.Find(s => string.Equals(_so.PathGetFileName(s), name + ModuleProcessing.ExtensionFromType(type),
                 StringComparison.OrdinalIgnoreCase));   //badkatro: https://github.com/andyqp/VBASync/commit/4129b9ebe51caeaaf4a81b58a924e1c1405b2627
             // original code below
             /*=> ModuleFilePaths.Find(s => string.Equals(_so.PathGetFileName(s), name + ModuleProcessing.ExtensionFromType(type),
