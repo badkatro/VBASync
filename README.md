@@ -5,9 +5,9 @@ version control difficult. VBA Sync synchronizes macros between a
 VBA-enabled file and a folder, enabling easy version control using Git, SVN,
 Mercurial, or any other VCS.
 
-**I no longer maintain this project. I have released it into the public domain.**
+**Free software. Attempting integration with Bruce McPherson's vbaGit project (work in progress)**
 
-[**Download my final release (v2.2.0)**](https://github.com/chelh/VBASync/releases/latest)  
+[**Download the latest release (alpha) (v2.2.1)**](https://github.com/badkatro/VBASync/releases/latest)  
 [**Look for a newer version, or advertise your new version**](https://github.com/chelh/VBASync/issues/36)
 
 ## Features
@@ -21,6 +21,7 @@ the VBA code. This gives it several advantages:
   * Minimizes spurious changes by ignoring case on variable names,
     making merges easier.
   * Extracts full code including several hidden attributes.
+  * Extracts forms only by using parameter from command line
   * Also extracts settings not tied to a particular module,
     like references.
   * Generates FRX files compatible with the VBE, but
@@ -32,6 +33,7 @@ the VBA code. This gives it several advantages:
   * Supports Excel 97-2003, Excel 2007+, Word 97-2003, Word 2007+,
     PowerPoint 2007+, and Outlook files.
   * Compatible with Windows, Linux, and Mac.
+  
 
 ## Using
 VBA Sync has two modes: **Extract** mode extracts modules
@@ -63,6 +65,7 @@ Switch | Meaning
 ------ | ------
 `-x`   | Extract VBA from Office file (default)
 `-p`   | Publish VBA to Office file
+`-fo`  | (use with -r -x or -r -p) Extract VBA forms only (ThisDocument.cls included - must fix)
 `-f <file>` | Specify Office file
 `-d <dir>` | Specify version-control directory
 `-r`   | Do the selected action, then immediately exit (**required** on Linux/Mac)
